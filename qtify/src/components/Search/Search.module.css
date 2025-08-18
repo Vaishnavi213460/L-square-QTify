@@ -1,0 +1,35 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ffffff; 
+  border-radius: 8px; 
+  overflow: hidden; 
+  height: 38px;
+  width: 400px; 
+  background-color: #ffffff;
+}
+
+.search {
+  flex-grow: 1; 
+  border: none;
+  padding: 0 16px;
+  font-size: 14px;
+  outline: none; 
+}
+
+.searchButton {
+  background-color: #ffffff;
+  border: none;
+  border-left: 1px solid #121212; 
+  padding: 0 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%; 
+}
+
+.searchButton img {
+  height: 18px; 
+  width: 18px;
+}
