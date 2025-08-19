@@ -11,19 +11,17 @@ function Section({
   hasShowAll = true,
   type = "album",
   component,
-  overrideData, 
+  overrideData,
 }) {
   const [data, setData] = useState([]);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   useEffect(() => {
-    // If overrideData is provided, use it directly
     if (overrideData) {
       setData(overrideData);
       return;
     }
 
-    // Otherwise, fetch from API (albums, etc.)
     if (apiEndpoint) {
       async function fetchData() {
         try {
@@ -45,7 +43,6 @@ function Section({
     <div className={styles.section}>
       <div className={styles.header}>
         <h3>{title}</h3>
-        {/* Show All button only for albums */}
         {hasShowAll && type !== "song" && (
           <button className={styles.collapseButton} onClick={toggleView}>
             {isCollapsed ? "Collapse" : "Show All"}
@@ -53,22 +50,16 @@ function Section({
         )}
       </div>
 
-      {/* Tabs or any extra component (used for Songs filter) */}
       {component}
 
-      {/* Render logic */}
-      {type === "song" ? (
-        // Songs → always Carousel, no grid
-        <Carousel data={data} type={type} />
-      ) : isCollapsed ? (
-        // Albums (grid view after clicking Show All)
+      {/* RENDER LOGIC FIX: Render songs in a card grid for easier testing and a better UX */}
+      {isCollapsed || type === "song" ? (
         <div className={styles.cardGrid}>
           {data.map((item) => (
-            <Card key={item.id} data={item} isSong={false} />
+            <Card key={item.id} data={item} isSong={type === "song"} />
           ))}
         </div>
       ) : (
-        // Albums (default carousel view)
         <Carousel data={data} type={type} />
       )}
     </div>
