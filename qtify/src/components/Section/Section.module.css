@@ -1,5 +1,6 @@
 .section {
   padding: 20px 0;
+  background-color: #121212; /* Added black background */
 }
 
 .header {
