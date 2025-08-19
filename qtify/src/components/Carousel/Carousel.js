@@ -35,9 +35,10 @@ function Carousel({ data, type }) {
           modules={[Navigation]}
           spaceBetween={20}
           slidesPerView={7}
-          onSwiper={(swiper) => {
-            swiperRef.current = swiper;
-          }}
+          slidesPerGroup={7} 
+          watchOverflow={true}
+          onSwiper={(swiper) => { swiperRef.current = swiper; }}
+        virtual={false}
           breakpoints={{
             320: { slidesPerView: 2 },
             480: { slidesPerView: 3 },
