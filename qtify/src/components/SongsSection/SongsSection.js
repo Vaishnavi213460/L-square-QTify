@@ -1,73 +1,65 @@
-// src/components/SongsSection/SongsSection.js
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { Tabs, Tab } from "@mui/material";
 import Section from "../Section/Section";
+import styles from "./SongsSection.module.css";
 
 function SongsSection() {
   const [songs, setSongs] = useState([]);
   const [genres, setGenres] = useState([]);
-  const [activeGenre, setActiveGenre] = useState("all");
+  const [selectedTab, setSelectedTab] = useState("All");
 
   // Fetch songs
   useEffect(() => {
-    axios
-      .get("https://qtify-backend-labs.crio.do/songs")
-      .then((res) => setSongs(res.data))
-      .catch((err) => console.error("Error fetching songs", err));
+    const fetchSongs = async () => {
+      const res = await fetch("https://qtify-backend-labs.crio.do/songs");
+      const data = await res.json();
+      setSongs(data);
+    };
+    fetchSongs();
   }, []);
 
   // Fetch genres
   useEffect(() => {
-    axios
-      .get("https://qtify-backend-labs.crio.do/genres")
-      .then((res) => setGenres(res.data.data))
-      .catch((err) => console.error("Error fetching genres", err));
+    const fetchGenres = async () => {
+      const res = await fetch("https://qtify-backend-labs.crio.do/genres");
+      const data = await res.json();
+      setGenres(["All", ...data.map((genre) => genre.label)]);
+    };
+    fetchGenres();
   }, []);
 
-  // Filter songs by genre
+  // Filter songs
   const filteredSongs =
-    activeGenre === "all"
+    selectedTab === "All"
       ? songs
-      : songs.filter((song) => song.genre.key === activeGenre);
+      : songs.filter((song) => song.genre.label === selectedTab);
 
   return (
-    <Section
-      title="Songs"
-      hasShowAll={false} // hide show all button for songs
-      type="song"
-      overrideData={filteredSongs} // pass filtered list directly
-      component={
-        <Tabs
-          value={activeGenre}
-          onChange={(e, newValue) => setActiveGenre(newValue)}
-          textColor="inherit"
-          indicatorColor="secondary"
-          sx={{
-            "& .MuiTab-root": {
-              color: "#fff",
-              textTransform: "none",
-              fontWeight: 600,
-              fontSize: "16px",
-              marginRight: "16px",
-            },
-            "& .Mui-selected": {
-              color: "#34C94B !important",
-            },
-            "& .MuiTabs-indicator": {
-              backgroundColor: "#34C94B",
-              height: "3px",
-              borderRadius: "2px",
-            },
-          }}
-        >
-          <Tab label="All" value="all" />
-          {genres.map((genre) => (
-            <Tab key={genre.key} label={genre.label} value={genre.key} />
-          ))}
-        </Tabs>
-      }
-    />
+    <div className={styles.container}>
+      <h3 className={styles.title}>Songs</h3>
+
+      {/* Tabs */}
+      <div className={styles.tabs}>
+        {genres.map((tab) => (
+          <button
+            key={tab}
+            className={`${styles.tab} ${
+              selectedTab === tab ? styles.activeTab : ""
+            }`}
+            onClick={() => setSelectedTab(tab)}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
+
+      {/* Section with filtered songs */}
+      <Section
+        title="Songs"
+        overrideData={filteredSongs}  // ✅ correct prop
+        type="song"                  // ✅ ensures Likes appear instead of Follows
+        hasShowAll={false}           // ✅ removes Show All
+      />
+    </div>
   );
 }
 
