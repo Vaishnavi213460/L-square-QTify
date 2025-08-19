@@ -1,0 +1,49 @@
+.card {
+  width: 159px;
+  height: 236px;
+  border-radius: 10px;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 180px; 
+}
+
+.albumImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.chipWrapper {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+}
+
+.chip {
+  background-color: #121212 !important; 
+  color: #fff !important;
+  font-size: 10px;
+}
+
+.titleWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  background-color: #121212;
+  color: #fff;
+  padding: 0 10px;
+}
+
+.titleWrapper p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
