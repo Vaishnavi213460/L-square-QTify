@@ -1,0 +1,44 @@
+/* src/components/Carousel/Carousel.module.css */
+
+.carouselContainer {
+  position: relative;
+  width: 100%;
+}
+
+.swiperWrapper {
+  padding: 0 30px;
+}
+
+.navButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  /* Remove the background-color and border-radius */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.navButton:hover {
+  /* This hover effect will no longer apply a background, so you can remove it if you wish */
+  background-color: transparent;
+}
+
+.prevButton {
+  left: 5px;
+}
+
+.nextButton {
+  right: 5px;
+}
+
+.navIcon {
+  width: 30px;
+  height: 30px;
+  pointer-events: none;
+}

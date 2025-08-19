@@ -1,0 +1,20 @@
+.tabs {
+  background-color: #121212;
+  border-bottom: 2px solid #333;
+}
+
+.tab {
+  color: #fff;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.tabSelected {
+  color: #1db954 !important;
+  font-weight: 700;
+}
+
+.tabIndicator {
+  background-color: #1db954 !important;
+  height: 3px !important;
+}
