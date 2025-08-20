@@ -32,23 +32,23 @@ function Carousel({ data, type }) {
       {/* Swiper component wrapped in a div to manage its own padding */}
       <div className={styles.swiperWrapper}>
         <Swiper
-          modules={[Navigation]}
-          spaceBetween={20}
-          slidesPerView={7}
-        //   slidesPerGroup={2} 
-          watchOverflow={true}
-          onSwiper={(swiper) => { swiperRef.current = swiper; }}
-          virtual={false}
-        //   breakpoints={{
-        //     320: { slidesPerView: 2, slidesPerGroup: 2 },
-        //     480: { slidesPerView: 3, slidesPerGroup: 3 },
-        //     640: { slidesPerView: 4, slidesPerGroup: 4 },
-        //     768: { slidesPerView: 5, slidesPerGroup: 5 },
-        //     1024: { slidesPerView: 6, slidesPerGroup: 6 },
-        //     1440: { slidesPerView: 7, slidesPerGroup: 7 },
-        //   }}
+            modules={[Navigation]}
+            spaceBetween={20}
+            slidesPerView={7}
+            slidesPerGroup={2}  
+            watchOverflow={true}
+            onSwiper={(swiper) => { swiperRef.current = swiper; }}
+            virtual={false}
+            // breakpoints={{
+            //   320: { slidesPerView: 2, slidesPerGroup: 2 },
+            //   480: { slidesPerView: 3, slidesPerGroup: 3 },
+            //   640: { slidesPerView: 4, slidesPerGroup: 4 },
+            //   768: { slidesPerView: 5, slidesPerGroup: 5 },
+            //   1024: { slidesPerView: 6, slidesPerGroup: 6 },
+            //   1440: { slidesPerView: 7, slidesPerGroup: 7 },
+            // }}
+          >
 
-        >
           {data.map((item) => (
             // Pass the 'isSong' prop to the Card component
             <SwiperSlide key={item.id}>
