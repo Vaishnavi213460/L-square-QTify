@@ -1,8 +1,9 @@
+// src/components/Section/Section.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Card from "../Card/Card";
-import Carousel from "../Carousel/Carousel";
 import styles from "./Section.module.css";
+import Carousel from "../Carousel/Carousel";
 
 function Section({
   title,
@@ -11,15 +12,10 @@ function Section({
   type = "album",
   component,
   overrideData,
-  filter, // <-- get filter from props
+  filter, // optional filter function
 }) {
   const [data, setData] = useState([]);
   const [isCollapsed, setIsCollapsed] = useState(false);
-
-  const filteredData =
-  type === "song" && filter && filter !== "all"
-    ? data.filter((item) => item.genre.key === filter)
-    : data;
 
   useEffect(() => {
     if (overrideData) {
@@ -44,37 +40,47 @@ function Section({
     setIsCollapsed(!isCollapsed);
   };
 
+  
+  let filteredData = data;
+  if (filter) {
+    if (typeof filter === "function") {
+      filteredData = data.filter(filter);
+    } else if (typeof filter === "string" && filter.toLowerCase() === "all") {
+      filteredData = data; // "all" means no filtering
+    }
+  }
+
   return (
-    <div
-      className={styles.section}
-      style={type === "song" ? { backgroundColor: "black", color: "white", padding: "1rem" } : {}}
-    >
+    <div className={styles.section}>
       <div className={styles.header}>
         <h3 style={type === "song" ? { color: "white" } : {}}>{title}</h3>
+        {/* Show All / Collapse only for albums */}
         {hasShowAll && type !== "song" && (
           <button className={styles.collapseButton} onClick={toggleView}>
-            {isCollapsed ? "Collapse" : "Show all"}
+            {isCollapsed ? "Collapse" : "Show All"}
           </button>
         )}
       </div>
 
+      {/* Optional custom component (Tabs etc.) */}
       {component}
 
-      {type === "song" ? (
-        <Carousel data={filteredData} type={type} />
-      ) : isCollapsed ? (
-        <div className={styles.cardGrid}>
-          {filteredData.map((item) => (
-            <Card key={item.id} data={item} isSong={false} />
-          ))}
-        </div>
+      {/* ✅ Logic fixed */}
+      {hasShowAll && type !== "song" ? (
+        isCollapsed ? (
+          <div className={styles.cardGrid}>
+            {filteredData.map((item) => (
+              <Card key={item.id} data={item} isSong={type === "song"} />
+            ))}
+          </div>
+        ) : (
+          <Carousel data={filteredData} type={type} />
+        )
       ) : (
         <Carousel data={filteredData} type={type} />
       )}
     </div>
-
   );
 }
-
 
 export default Section;
