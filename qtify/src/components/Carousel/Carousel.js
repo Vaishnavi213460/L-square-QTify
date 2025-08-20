@@ -34,7 +34,8 @@ function Carousel({ data, type }) {
         <Swiper
           modules={[Navigation]}
           spaceBetween={20}
-          slidesPerView={7}
+          slidesPerView={6}
+          slidesPerGroup={1} 
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
           }}
@@ -44,7 +45,7 @@ function Carousel({ data, type }) {
             640: { slidesPerView: 4 },
             768: { slidesPerView: 5 },
             1024: { slidesPerView: 6 },
-            1440: { slidesPerView: 7 },
+            1440: { slidesPerView: 6 },
           }}
         >
           {data.map((item) => (

@@ -55,9 +55,9 @@ function SongsSection() {
       {/* Section with filtered songs */}
       <Section
         title="Songs"
-        overrideData={filteredSongs}  // ✅ correct prop
-        type="song"                  // ✅ ensures Likes appear instead of Follows
-        hasShowAll={false}           // ✅ removes Show All
+        overrideData={filteredSongs}  
+        type="song"                  
+        hasShowAll={false}         
       />
     </div>
   );
